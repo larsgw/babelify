@@ -110,12 +110,32 @@ function normalizeTransformOpts(opts) {
   if (opts.plugins && opts.plugins._) opts.plugins = opts.plugins._;
   if (opts.presets && opts.presets._) opts.presets = opts.presets._;
 
+  if (Array.isArray(opts.plugins)) opts.plugins = normalizePluginPresets(opts.plugins)
+  if (Array.isArray(opts.presets)) opts.presets = normalizePluginPresets(opts.presets)
+
   // browserify specific options
   delete opts._flags;
   delete opts.basedir;
   delete opts.global;
 
   return opts;
+}
+
+function normalizePluginPresets(opts) {
+  opts = opts.slice()
+
+  for (let i = 0; i < opts.length; i++) {
+    if (opts[i]._) {
+      opts[i] = [
+        opts[i]._[0],
+        Object.assign({}, opts[i])
+      ]
+
+      delete opts[i][1]._
+    }
+  }
+
+  return opts
 }
 
 class BabelifyStream extends stream.Transform {

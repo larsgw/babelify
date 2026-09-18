@@ -13,7 +13,7 @@ assert(path.isAbsolute(sourceFile));
 var sourceSrc = fs.readFileSync(sourceFile, 'utf8');
 
 test('babel source maps (filename and sourceFileName)', function(t) {
-  var result = babel.transform(sourceSrc, {
+  var result = babel.transformSync(sourceSrc, {
     sourceMaps: 'inline',
     filename: sourceFile,
     sourceFileName: sourceFile,
@@ -26,5 +26,5 @@ test('babel source maps (filename and sourceFileName)', function(t) {
 
   t.same(sm.sources, [sourceFile]);
 
-  t.done();
+  t.end();
 });

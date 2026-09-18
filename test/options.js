@@ -9,14 +9,14 @@ test('passes options via configure', function(t) {
   var b = browserify(path.join(__dirname, 'bundle/index.js'));
 
   b.transform(babelify.configure({
-    presets: ['@babel/preset-env'],
+    presets: [['@babel/preset-env', { modules: 'commonjs' }]],
     plugins: ['@babel/plugin-transform-property-literals']
   }));
 
   b.bundle(function (err, src) {
     t.error(err);
-    t.match(src.toString(), /"catch": "catch"/);
-    t.match(src.toString(), /"delete": "delete"/);
+    t.match(src.toString(), /"catch": `catch`/);
+    t.match(src.toString(), /"delete": `delete`/);
   });
 });
 
@@ -26,13 +26,13 @@ test('passes options via browserify', function(t) {
   var b = browserify(path.join(__dirname, 'bundle/index.js'));
 
   b.transform(babelify, {
-    presets: ['@babel/preset-env'],
+    presets: [['@babel/preset-env', { modules: 'commonjs' }]],
     plugins: ['@babel/plugin-transform-property-literals']
   });
 
   b.bundle(function (err, src) {
     t.error(err);
-    t.match(src.toString(), /"catch": "catch"/);
-    t.match(src.toString(), /"delete": "delete"/);
+    t.match(src.toString(), /"catch": `catch`/);
+    t.match(src.toString(), /"delete": `delete`/);
   });
 });

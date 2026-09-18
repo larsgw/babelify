@@ -11,7 +11,7 @@ test('browserify-cli no subargs', function (t) {
     '-r', path.join(__dirname, '/bundle/index.js') + ':bundle',
     '-t', '[',
       path.join(__dirname, '../'),
-      '--presets', '[', '@babel/preset-env', ']',
+      '--presets', '[', '[', '@babel/preset-env', '--modules', 'commonjs', ']', ']',
       '--plugins', '[', '@babel/plugin-transform-property-literals', ']',
     ']',
   ];
@@ -25,7 +25,7 @@ test('browserify-cli no subargs', function (t) {
 
   ps.on('error', function(err) { throw err; });
   ps.on('exit', function(code) {
-    t.notOk(err);
+    t.equal(err, '');
     t.equal(code, 0);
 
     var c = {};
@@ -33,8 +33,8 @@ test('browserify-cli no subargs', function (t) {
 
     t.equal(c.require('bundle').a, 'a is for apple');
 
-    t.match(out.toString(), /"catch": "catch"/);
-    t.match(out.toString(), /"delete": "delete"/);
+    t.match(out.toString(), /"catch": `catch`/);
+    t.match(out.toString(), /"delete": `delete`/);
   });
 });
 
@@ -48,7 +48,11 @@ test('browserify-cli with subargs', function (t) {
     '-r', path.join(__dirname, '/bundle/react-flow.js') + ':reactFlow',
     '-t', '[',
       path.join(__dirname, '../'),
-      '--presets', '[', '@babel/preset-env', '@babel/preset-react', '@babel/preset-flow', ']',
+      '--presets', '[',
+        '[', '@babel/preset-env', '--modules', 'commonjs', ']',
+        '@babel/preset-react',
+        '@babel/preset-flow',
+      ']',
       '--plugins', '[',
         '@babel/plugin-transform-react-display-name',
         'transform-node-env-inline',
@@ -65,7 +69,7 @@ test('browserify-cli with subargs', function (t) {
 
   ps.on('error', function(err) { throw err; });
   ps.on('exit', function(code) {
-    t.notOk(err);
+    t.equal(err, '');
     t.equal(code, 0);
 
     var c = {};

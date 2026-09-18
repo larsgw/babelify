@@ -25,7 +25,7 @@ test('sourceMapsAbsolute', function(t) {
   });
 
   b.transform(babelify.configure({
-    presets: ['@babel/preset-env'],
+    presets: [['@babel/preset-env', { modules: 'commonjs' }]],
     sourceMapsAbsolute: true
   }));
 
