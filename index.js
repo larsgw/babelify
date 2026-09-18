@@ -154,7 +154,7 @@ class BabelifyStream extends stream.Transform {
 function transform(data, inputOpts, done) {
   let cfg;
   try {
-    cfg = babel.loadPartialConfig(inputOpts);
+    cfg = babel.loadPartialConfigSync(inputOpts);
     if (!cfg) return done(null, null);
   } catch (err) {
     return done(err);
