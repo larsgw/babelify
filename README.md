@@ -1,4 +1,4 @@
-# babelify [![Build Status](https://github.com/larsgw/babelify/actions/workflows/action.yml/badge.svg?branch=master)](https://github.com/larsgw/babelify/actions/workflows/action.yml)
+# babelify [![Build Status](https://github.com/larsgw/babelify/actions/workflows/action.yml/badge.svg?branch=main)](https://github.com/larsgw/babelify/actions/workflows/action.yml)
 
 [Babel](https://github.com/babel/babel) [browserify](https://github.com/substack/node-browserify) transform.
 
